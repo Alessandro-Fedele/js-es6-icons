@@ -18,8 +18,11 @@
                 <div class="d-flex">
                     <div class="input-group">
                         <div class="input-group-text bg-info text-white fs-5">Filtra per tipo</div>
-                        <select class="form-select" id="filter" style="width: 150px;">
-                            <option selected value="">Tutte</option>
+                        <select onchange="fill()" class="form-select" id="filter" style="width: 150px;">
+                            <option value="1">Tutte</option>
+                            <option value="2">Animal</option>
+                            <option value="3">Vegetable</option>
+                            <option value="4">User</option>
                         </select>
                     </div>
                 </div>

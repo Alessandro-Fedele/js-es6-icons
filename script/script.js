@@ -107,23 +107,27 @@ const colorXtype = {
 
 const iconContainer = document.querySelector(".icon-container");
 
-// Ciclo le icone 
-for (let i = 0; i < arrayIcons.length; i++) {
-    const icon = arrayIcons[i];
-    // Recupero il colore 
-    const color = colorXtype[icon.type];
-    // Creo le col con le card per ogni icona 
-    iconContainer.innerHTML += `<div class="col">
-                                    <div class="card shadow">
-                                        <div class="card-img-top justify-content-center align-items-center d-flex fs-1 pt-4">
-                                            <i class="${icon.family} ${icon.prefix + icon.name}" style="color: ${color}"></i>
+// Ciclo le icone
+function allIcons()
+{
+    for (let i = 0; i < arrayIcons.length; i++) {
+        const icon = arrayIcons[i];
+        // Recupero il colore 
+        const color = colorXtype[icon.type];
+        // Creo le col con le card per ogni icona 
+        iconContainer.innerHTML += `<div class="col">
+                                        <div class="card shadow">
+                                            <div class="card-img-top justify-content-center align-items-center d-flex fs-1 pt-4">
+                                                <i class="${icon.family} ${icon.prefix + icon.name}" style="color: ${color}"></i>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="card-title text-center">${icon.name}</div>
+                                            </div>
                                         </div>
-                                        <div class="card-body">
-                                            <div class="card-title text-center">${icon.name}</div>
-                                        </div>
-                                    </div>
-                                </div>`;
+                                    </div>`;
+    }
 }
+allIcons();
 
 // Funzione per gruppare In base alla KEY
 // list è l'array di ogetti e key è la chiave per gruppare
@@ -143,5 +147,48 @@ function groupByType(list, key)
     // {} è il valore iniziale di storage 
 };
 
-let grouppedType = groupByType(arrayIcons, "type");
-console.log(grouppedType);
+let grouppedIconsByType = groupByType(arrayIcons, ("type"));
+console.log(grouppedIconsByType);
+
+// Funzione per stampare in base al filtro scelto
+function printFilter(listNew)
+{
+    for (let i = 0; i < listNew.length; i++) {
+        const icon = listNew[i];
+        console.log(icon);
+        // Recupero il colore 
+        const color = colorXtype[icon.type];
+        // Creo le col con le card per ogni icona 
+        iconContainer.innerHTML += `<div class="col">
+                                        <div class="card shadow">
+                                            <div class="card-img-top justify-content-center align-items-center d-flex fs-1 pt-4">
+                                                <i class="${icon.family} ${icon.prefix + icon.name}" style="color: ${color}"></i>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="card-title text-center">${icon.name}</div>
+                                            </div>
+                                        </div>
+                                    </div>`;
+    }
+}
+
+function fill()
+{
+    const filterSelect = document.getElementById("filter");
+    let selectedFilter = filterSelect.options[filterSelect.selectedIndex].text;
+    console.log(selectedFilter);
+    if (selectedFilter == "Animal") {
+        iconContainer.innerHTML = "";
+        printFilter(grouppedIconsByType.animal);
+    } else if (selectedFilter == "Vegetable") {
+        iconContainer.innerHTML = "";
+        printFilter(grouppedIconsByType.vegetable);
+    } else if (selectedFilter == "User") {
+        iconContainer.innerHTML = "";
+        printFilter(grouppedIconsByType.user);
+    } else {
+        iconContainer.innerHTML = "";
+        allIcons();
+
+    }
+}
