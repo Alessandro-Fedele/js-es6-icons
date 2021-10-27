@@ -189,6 +189,5 @@ function fill()
     } else {
         iconContainer.innerHTML = "";
         allIcons();
-
     }
 }
